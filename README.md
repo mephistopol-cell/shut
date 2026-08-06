@@ -14,3 +14,51 @@
 Здравствуйте , я официальный представитель команды NAVI, мы следили за вами и посмотрев ваши игры, ваше мышление и раскидки, мы приняли решение, что хотели бы вас видеть в роли человека, который будет протирать мониторы
 
 Привет, друг! Тебя долгое время небыло на сервере "сочные фембои 🏳️‍⚧️Genshin Impact"! Все хорошо? Прошу отправить нам весть, что всё в порядке!
+
+Ты был водолазом водолаза, пока всё пердели в рот Хованскому, он, вместо того чтобы выпустить газы в окно, брал тебя за яйца и начинал жеско засасывать в губы, и после этого ты бежал к форточке
+
+█████░░░░██████████████КИНЬ НА СТЕНУ ДРУЗЬЯМ ЭТОТ ВЕНТИЛЯТОР
+█████░░░░██████████████ЧТОБЫ ВСЕГДА ПОДДЕРЖИВАТЬ СТИМ
+█████░░░░█████░░░░░░░░░ОСВЕЖЕННЫМ
+█████░░░░█████░░░░░░░░░
+███████████████████████
+███████████████████████
+███████████████████████
+░░░░░░░░░█████░░░░█████
+░░░░░░░░░█████░░░░█████
+██████████████░░░░█████
+██████████████░░░░█████
+
+
+……………………………....…………._¸„„„„_
+……………………....…………...„--~*'¯…….'\
+………….…....………………… („-~~--„¸_….,/ì'Ì
+……....………….………….¸„-^"¯ : : : : :¸-¯"¯/'
+………....……………¸„„-^"¯ : : : : : : : '\¸„„,-"
+**¯¯¯'^^~-„„„----~^*'"¯ : : : : : : : : : :¸-"
+.:.:.:.:.„-^" : : : : : : : : : : : : : : : : :„-"
+:.:.:.:.:.:.:.:.:.:.: : : : : : : : : : ¸„-^¯
+.::.:.:.:.:.:.:.:. : : : : : : : ¸„„-^¯
+:.' : : '\ : : : : : : : ;¸„„-~"
+:.:.:: :"-„""***/*'ì¸'¯
+:.': : : : :"-„ : : :"\
+.:.:.: : : : :" : : : : \,
+:.: : : : : : : : : : : : 'Ì
+: : : : : : :, : : : : : :/
+"-„_::::_„-*__„„~"
+
+⣿⣿⣿⣵⣿⣿⣿⠿⡟⣛⣧⣿⣯⣿⣝⡻⢿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⠋⠁⣴⣶⣿⣿⣿⣿⣿⣿⣿⣦⣍⢿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⢷⠄⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣏⢼⣿⣿⣿⣿
+⢹⣿⣿⢻⠎⠔⣛⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⣿⣿⣿⣿
+⢸⣿⣿⠇⡶⠄⣿⣿⠿⠟⡛⠛⠻⣿⡿⠿⠿⣿⣗⢣⣿⣿⣿⣿
+⠐⣿⣿⡿⣷⣾⣿⣿⣿⣾⣶⣶⣶⣿⣁⣔⣤⣀⣼⢲⣿⣿⣿⣿
+⠄⣿⣿⣿⣿⣾⣟⣿⣿⣿⣿⣿⣿⣿⡿⣿⣿⣿⢟⣾⣿⣿⣿⣿
+⠄⣟⣿⣿⣿⡷⣿⣿⣿⣿⣿⣮⣽⠛⢻⣽⣿⡇⣾⣿⣿⣿⣿⣿
+⠄⢻⣿⣿⣿⡷⠻⢻⡻⣯⣝⢿⣟⣛⣛⣛⠝⢻⣿⣿⣿⣿⣿⣿
+⠄⠸⣿⣿⡟⣹⣦⠄⠋⠻⢿⣶⣶⣶⡾⠃⡂⢾⣿⣿⣿⣿⣿⣿
+⠄⠄⠟⠋⠄⢻⣿⣧⣲⡀⡀⠄⠉⠱⣠⣾⡇⠄⠉⠛⢿⣿⣿⣿
+⠄⠄⠄⠄⠄⠈⣿⣿⣿⣷⣿⣿⢾⣾⣿⣿⣇⠄⠄⠄⠄⠄⠉⠉
+⠄⠄⠄⠄⠄⠄⠸⣿⣿⠟⠃⠄⠄⢈⣻⣿⣿⠄⠄⠄⠄⠄⠄⠄
+
+40 KG XYESOS CHE TI TAM NAPISIVAESH GOLOSKA SVOEGO PISKLYAVOGO STESNYAESHSYA TI JE TOLKO XYI ODNOKLASSNIKOV SOSESH PO JIZNI POPUSHENNIJ I ONI TEBE SVOIMI XUYAMI VSYU GLOTKU PORVALI TEBE XYESOSU40 KG XYESOS CHE TI TAM NAPISIVAESH GOLOSKA SVOEGO PISKLYAVOGO STESNYAESHSYA TI JE TOLKO XYI ODNOKLASSNIKOV SOSESH PO JIZNI POPUSHENNIJ I ONI TEBE SVOIMI XUYAMI VSYU GLOTKU PORVALI TEBE XYESOSU40 KG XYESOS CHE TI TAM NAPISIVAESH GOLOSKA SVOEGO PISKLYAVOGO STESNYAESHSYA TI JE TOLKO XYI ODNOKLASSNIKOV SOSESH PO JIZNI POPUSHENNIJ I ONI TEBE SVOIMI XUYAMI VSYU GLOTKU PORVALI TEBE XYESOSU40 KG XYESOS CHE TI TAM NAPISIVAESH GOLOSKA SVOEGO PISKLYAVOGO STESNYAESHSYA TI JE TOLKO XYI ODNOKLASSNIKOV SOSESH PO JIZNI POPUSHENNIJ I ONI TEBE SVOIMI XUYAMI VSYU GLOTKU PORVALI TEBE XYESOSU40 KG XYESOS CHE TI TAM NAPISIVAESH GOLOSKA SVOEGO PISKLYAVOGO STESNYAESHSYA TI JE TOLKO XYI ODNOKLASSNIKOV SOSESH PO JIZNI POPUSHENNIJ I ONI TEBE SVOIMI XUYAMI VSYU GLOTKU PORVALI TEBE XYESOSU
