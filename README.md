@@ -47,6 +47,8 @@
 : : : : : : :, : : : : : :/
 "-„_::::_„-*__„„~"
 
+
+
 ⣿⣿⣿⣵⣿⣿⣿⠿⡟⣛⣧⣿⣯⣿⣝⡻⢿⣿⣿⣿⣿⣿⣿⣿
 ⣿⣿⣿⣿⣿⠋⠁⣴⣶⣿⣿⣿⣿⣿⣿⣿⣦⣍⢿⣿⣿⣿⣿⣿
 ⣿⣿⣿⣿⢷⠄⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣏⢼⣿⣿⣿⣿
@@ -61,4 +63,35 @@
 ⠄⠄⠄⠄⠄⠈⣿⣿⣿⣷⣿⣿⢾⣾⣿⣿⣇⠄⠄⠄⠄⠄⠉⠉
 ⠄⠄⠄⠄⠄⠄⠸⣿⣿⠟⠃⠄⠄⢈⣻⣿⣿⠄⠄⠄⠄⠄⠄⠄
 
+
+
 40 KG XYESOS CHE TI TAM NAPISIVAESH GOLOSKA SVOEGO PISKLYAVOGO STESNYAESHSYA TI JE TOLKO XYI ODNOKLASSNIKOV SOSESH PO JIZNI POPUSHENNIJ I ONI TEBE SVOIMI XUYAMI VSYU GLOTKU PORVALI TEBE XYESOSU40 KG XYESOS CHE TI TAM NAPISIVAESH GOLOSKA SVOEGO PISKLYAVOGO STESNYAESHSYA TI JE TOLKO XYI ODNOKLASSNIKOV SOSESH PO JIZNI POPUSHENNIJ I ONI TEBE SVOIMI XUYAMI VSYU GLOTKU PORVALI TEBE XYESOSU40 KG XYESOS CHE TI TAM NAPISIVAESH GOLOSKA SVOEGO PISKLYAVOGO STESNYAESHSYA TI JE TOLKO XYI ODNOKLASSNIKOV SOSESH PO JIZNI POPUSHENNIJ I ONI TEBE SVOIMI XUYAMI VSYU GLOTKU PORVALI TEBE XYESOSU40 KG XYESOS CHE TI TAM NAPISIVAESH GOLOSKA SVOEGO PISKLYAVOGO STESNYAESHSYA TI JE TOLKO XYI ODNOKLASSNIKOV SOSESH PO JIZNI POPUSHENNIJ I ONI TEBE SVOIMI XUYAMI VSYU GLOTKU PORVALI TEBE XYESOSU40 KG XYESOS CHE TI TAM NAPISIVAESH GOLOSKA SVOEGO PISKLYAVOGO STESNYAESHSYA TI JE TOLKO XYI ODNOKLASSNIKOV SOSESH PO JIZNI POPUSHENNIJ I ONI TEBE SVOIMI XUYAMI VSYU GLOTKU PORVALI TEBE XYESOSU
+
+
+░░░░█─────────────█──▀──
+░░░░▓█───────▄▄▀▀█──────
+░░░░▒░█────▄█▒░░▄░█─────
+░░░░░░░▀▄─▄▀▒▀▀▀▄▄▀──DO─
+░░░░░░░░░█▒░░░░▄▀───YOU─
+▒▒▒░░░░▄▀▒░░░░▄▀───LIKE─
+▓▓▓▓▒░█▒░░░░░█▄───WHAT─
+█████▀▒░░░░░█░▀▄───YOU──
+█████▒▒░░░▒█░░░▀▄─SEE?──
+███▓▓▒▒▒▀▀▀█▄░░░░█──────
+▓██▓▒▒▒▒▒▒▒▒▒█░░░░█─────
+▓▓█▓▒▒▒▒▒▒▓▒▒█░░░░░█────
+░▒▒▀▀▄▄▄▄█▄▄▀░░░░░░░█─
+
+
+
+⣿⣿⣿⣿⣿⣿⡟⠁⠄⠄⠄⠄⣠⣤⣴⣶⣶⣶⣶⣤⡀⠈⠙⢿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⡟⠄⠄⠄⠄⠄⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠄⠈⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⠁⠄⠄⠄⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠄⠄⢺⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⡄⠄⠄⠄⠙⠻⠿⣿⣿⣿⣿⠿⠿⠛⠛⠻⣿⡄⠄⣾⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⡇⠄⠄⠁ 👁️ ⠄⢹⣿⡗⠄ 👁️ ⢄⡀⣾⢀⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⡇⠘⠄⠄⠄⢀⡀⠄⣿⣿⣷⣤⣤⣾⣿⣿⣿⣧⢸⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⡇⠄⣰⣿⡿⠟⠃⠄⣿⣿⣿⣿⣿⡛⠿⢿⣿⣷⣾⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⡄⠈⠁⠄⠄⠄⠄⠻⠿⢛⣿⣿⠿⠂⠄⢹⢹⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⡐⠐⠄⠄⣠⣀⣀⣚⣯⣵⣶⠆⣰⠄⠞⣾⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣷⡄⠄⠄⠈⠛⠿⠿⠿⣻⡏⢠⣿⣎⣾⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⡿⠟⠛⠄⠄⠄⠄⠙⣛⣿⣿⣵⣿⡿⢹⡟⣿⣿⣿⣿⣿⣿⣿
