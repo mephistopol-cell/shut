@@ -788,3 +788,21 @@ set PLAYWRIGHT_BROWSERS_PATH=D:\AI_Uncensored\playwright_browsers
 start "" /B ollama serve
 "D:\AI_Uncensored\venv\Scripts\python.exe" "D:\AI_Uncensored\tg_bot.py"
 pause
+
+
+
+$BaseDir = "D:\AI_Uncensored"
+$BatCode = @"
+@echo off
+chcp 65001 >nul
+set OLLAMA_MODELS=$BaseDir\ollama_models
+set HF_HOME=$BaseDir\hf_cache
+set PLAYWRIGHT_BROWSERS_PATH=$BaseDir\playwright_browsers
+set TEMP=$BaseDir\temp
+set TMP=$BaseDir\temp
+start "" /B ollama serve
+"$BaseDir\venv\Scripts\python.exe" "$BaseDir\app.py"
+pause
+"@
+Set-Content -Path "$BaseDir\start.bat" -Value $BatCode -Encoding ASCII
+Copy-Item "$BaseDir\start.bat" -Destination "$env:USERPROFILE\Desktop\Start_AI_Uncensored.bat" -Force
