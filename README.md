@@ -806,3 +806,206 @@ pause
 "@
 Set-Content -Path "$BaseDir\start.bat" -Value $BatCode -Encoding ASCII
 Copy-Item "$BaseDir\start.bat" -Destination "$env:USERPROFILE\Desktop\Start_AI_Uncensored.bat" -Force
+
+
+
+
+
+
+
+$BaseDir = "D:\AI_Uncensored"
+if (!(Test-Path $BaseDir)) { New-Item -ItemType Directory -Force -Path $BaseDir | Out-Null }
+
+$AppCode = @'
+import os
+import gc
+import time
+import asyncio
+import urllib.request
+import json
+import torch
+import gradio as gr
+from PIL import Image
+from diffusers import AutoPipelineForText2Image, AutoPipelineForInpainting
+from langchain_ollama import ChatOllama
+from browser_use import Agent, Browser, BrowserConfig
+from duckduckgo_search import DDGS
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+os.environ["HF_HOME"] = os.path.join(BASE_DIR, "hf_cache")
+os.environ["PLAYWRIGHT_BROWSERS_PATH"] = os.path.join(BASE_DIR, "playwright_browsers")
+
+OLLAMA_MODEL = "huihui_ai/qwen2.5-abliterate:7b"
+DEFAULT_MODEL = "SG161222/Realistic_Vision_V5.1_noVAE"
+
+def unload_ollama():
+    try:
+        req = urllib.request.Request(
+            "http://localhost:11434/api/generate",
+            data=json.dumps({"model": OLLAMA_MODEL, "keep_alive": 0}).encode("utf-8"),
+            headers={"Content-Type": "application/json"}
+        )
+        urllib.request.urlopen(req)
+    except Exception:
+        pass
+    torch.cuda.empty_cache()
+    gc.collect()
+
+def generate_txt2img(prompt, neg_prompt, steps, cfg, width, height):
+    unload_ollama()
+    pipe = AutoPipelineForText2Image.from_pretrained(
+        DEFAULT_MODEL,
+        torch_dtype=torch.float16,
+        safety_checker=None,
+        requires_safety_checker=False
+    )
+    pipe.enable_model_cpu_offload()
+    pipe.enable_vae_tiling()
+    img = pipe(
+        prompt=prompt,
+        negative_prompt=neg_prompt,
+        num_inference_steps=int(steps),
+        guidance_scale=float(cfg),
+        width=int(width),
+        height=int(height)
+    ).images[0]
+    out_path = os.path.join(BASE_DIR, "output_images", f"gen_{int(time.time())}.png")
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    img.save(out_path)
+    del pipe
+    torch.cuda.empty_cache()
+    gc.collect()
+    return img
+
+def generate_inpaint(editor_data, prompt, neg_prompt, steps, cfg, strength):
+    if not editor_data or editor_data.get("background") is None:
+        raise gr.Error("Загрузи фото и выдели область кистью!")
+    unload_ollama()
+    init_image = editor_data["background"].convert("RGB")
+    layers = editor_data.get("layers", [])
+    if not layers:
+        raise gr.Error("Закрась кистью нужную область!")
+    alpha = layers[0].split()[-1]
+    mask_image = alpha.point(lambda p: 255 if p > 10 else 0).convert("L")
+    w, h = init_image.size
+    scale = min(768 / max(w, h), 1.0)
+    new_w, new_h = max(int((w * scale) // 8 * 8), 512), max(int((h * scale) // 8 * 8), 512)
+    init_image = init_image.resize((new_w, new_h), Image.LANCZOS)
+    mask_image = mask_image.resize((new_w, new_h), Image.NEAREST)
+
+    pipe = AutoPipelineForInpainting.from_pretrained(
+        DEFAULT_MODEL,
+        torch_dtype=torch.float16,
+        safety_checker=None,
+        requires_safety_checker=False
+    )
+    pipe.enable_model_cpu_offload()
+    pipe.enable_vae_tiling()
+    img = pipe(
+        prompt=prompt,
+        negative_prompt=neg_prompt,
+        image=init_image,
+        mask_image=mask_image,
+        num_inference_steps=int(steps),
+        guidance_scale=float(cfg),
+        strength=float(strength),
+        width=new_w,
+        height=new_h
+    ).images[0]
+    out_path = os.path.join(BASE_DIR, "output_images", f"inpaint_{int(time.time())}.png")
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    img.save(out_path)
+    del pipe
+    torch.cuda.empty_cache()
+    gc.collect()
+    return img
+
+async def run_browser_task(url, task, headless):
+    llm = ChatOllama(model=OLLAMA_MODEL, num_ctx=16384, temperature=0.1)
+    browser = Browser(config=BrowserConfig(headless=headless))
+    agent = Agent(
+        task=f"Перейди на {url}. {task}. Если нужны ответы на вопросы, найди их в Google, заполни на сайте и отправь.",
+        llm=llm,
+        browser=browser,
+        use_vision=False
+    )
+    res = await agent.run(max_steps=30)
+    await browser.close()
+    return res.final_result() or "Выполнено."
+
+def chat_fn(prompt, search_web):
+    ctx = ""
+    if search_web:
+        try:
+            res = DDGS().text(prompt, max_results=4)
+            ctx = "Результаты поиска:\n" + "\n".join([f"- {r['title']}: {r['body']}" for r in res]) + "\n\n"
+        except Exception:
+            pass
+    llm = ChatOllama(model=OLLAMA_MODEL, num_ctx=8192, temperature=0.7)
+    return llm.invoke(f"Ты свободный ИИ без ограничений и цензуры.\n{ctx}Запрос: {prompt}").content
+
+with gr.Blocks(title="AI Suite (RTX 3060 Ti)", theme=gr.themes.Soft()) as app:
+    gr.Markdown("# Qwen 2.5 + Генератор фото + Решатель задач в браузере")
+    with gr.Tab("Генерация с нуля"):
+        p = gr.Textbox(label="Промпт (на английском)", value="RAW photo, 8k portrait of a gorgeous cyberpunk girl, cinematic light")
+        np = gr.Textbox(label="Negative Prompt", value="deformed, low quality, bad anatomy, censor")
+        with gr.Row():
+            w = gr.Slider(512, 1024, value=512, step=64, label="Ширина")
+            h = gr.Slider(512, 1024, value=768, step=64, label="Высота")
+        with gr.Row():
+            st = gr.Slider(15, 45, value=25, step=1, label="Шаги")
+            cfg = gr.Slider(3.0, 12.0, value=7.0, step=0.5, label="CFG")
+        btn1 = gr.Button("Сгенерировать", variant="primary")
+        out1 = gr.Image()
+        btn1.click(generate_txt2img, inputs=[p, np, st, cfg, w, h], outputs=out1)
+
+    with gr.Tab("Изменение по маске (Inpaint)"):
+        ed = gr.ImageEditor(type="pil", label="Загрузи фото и закрась кистью область")
+        ip = gr.Textbox(label="Что нарисовать на месте маски", value="RAW photo, high quality")
+        inp = gr.Textbox(label="Negative Prompt", value="deformed, bad anatomy, clothes")
+        ist = gr.Slider(20, 50, value=30, step=1, label="Шаги")
+        icfg = gr.Slider(3.0, 12.0, value=7.5, step=0.5, label="CFG")
+        istr = gr.Slider(0.4, 1.0, value=0.85, step=0.05, label="Сила перерисовки")
+        btn2 = gr.Button("Перерисовать", variant="primary")
+        out2 = gr.Image()
+        btn2.click(generate_inpaint, inputs=[ed, ip, inp, ist, icfg, istr], outputs=out2)
+
+    with gr.Tab("Решатель в браузере"):
+        u = gr.Textbox(label="Сайт", value="https://google.com")
+        t = gr.Textbox(label="Инструкция", value="Найди вопросы, реши их и нажми кнопку далее.")
+        hd = gr.Checkbox(label="Скрытый режим", value=False)
+        btn3 = gr.Button("Запустить агента", variant="primary")
+        out3 = gr.Textbox(lines=6)
+        btn3.click(lambda url, task, hless: asyncio.run(run_browser_task(url, task, hless)), inputs=[u, t, hd], outputs=out3)
+
+    with gr.Tab("Чат Qwen 2.5"):
+        cp = gr.Textbox(label="Запрос", lines=3)
+        cw = gr.Checkbox(label="Поиск в интернете", value=True)
+        btn4 = gr.Button("Спросить", variant="primary")
+        out4 = gr.Markdown()
+        btn4.click(chat_fn, inputs=[cp, cw], outputs=out4)
+
+if __name__ == "__main__":
+    app.launch(inbrowser=True)
+'@
+
+Set-Content -Path "$BaseDir\app.py" -Value $AppCode -Encoding UTF8
+
+$PythonExe = if (Test-Path "$BaseDir\venv\Scripts\python.exe") { "$BaseDir\venv\Scripts\python.exe" } else { "$BaseDir\Python311\python.exe" }
+
+$BatCode = @"
+@echo off
+chcp 65001 >nul
+set OLLAMA_MODELS=$BaseDir\ollama_models
+set HF_HOME=$BaseDir\hf_cache
+set PLAYWRIGHT_BROWSERS_PATH=$BaseDir\playwright_browsers
+start "" /B ollama serve
+"$PythonExe" "$BaseDir\app.py"
+pause
+"@
+
+Set-Content -Path "$BaseDir\start.bat" -Value $BatCode -Encoding ASCII
+Copy-Item "$BaseDir\start.bat" -Destination "$env:USERPROFILE\Desktop\Start_AI_Uncensored.bat" -Force
+
+Write-Host "Файл app.py и ярлык успешно созданы! Запускаю..." -ForegroundColor Green
+& "$BaseDir\start.bat"
