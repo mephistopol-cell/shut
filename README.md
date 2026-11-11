@@ -1,5 +1,4 @@
-# shu
-Барабанная дробь...я не выучил
+# shu# shu# shuБарабанная дробь...я не выучил
 дз по истории... Ну.. тупо я. И вот начинается урок и истарица такая пупупу хм кто же пойдёт к доске отвечать. Мои мысли в этот момент буквально такие о боги хMXMXMXM только не яЯЯЯЯ XMXMXм а потом она такая смотрит на меня и такая хм Глеб давненько ты не отвечал, давай сегодня ответишь ты, и я такой про себя НЕЕЕТ дасадненько оооо. И она такая иди отвечай
 И я такой Хьюстон у нас проблемы. А соль этой истории в том что как ты уже мог догадаться мой ответ был просто отвратительным
 Забавненько
@@ -579,3 +578,213 @@ Copy-Item "$BaseDir\start.bat" -Destination "$env:USERPROFILE\Desktop\Start_AI_U
 
 Write-Host "=== ВСЁ ГОТОВО! Запускаю интерфейс... ===" -ForegroundColor Green
 & "$BaseDir\start.bat"
+
+
+
+
+import os
+import sys
+import asyncio
+import subprocess
+import httpx
+from telegram import Update
+from telegram.ext import (
+    ApplicationBuilder,
+    CommandHandler,
+    MessageHandler,
+    ContextTypes,
+    filters
+)
+from browser_use import Agent, Browser, BrowserConfig
+from langchain_ollama import ChatOllama
+
+# ================= КОНФИГУРАЦИЯ =================
+BOT_TOKEN = "9297614324:AAF8BLqXkpOiIEcyW7xzo86rc8ELTdS3w14"
+ALLOWED_USER_ID = 1605632357  # ВСТАВЬ СЮДА СВОЙ TELEGRAM ID
+
+OLLAMA_MODEL = "huihui_ai/qwen2.5-abliterate:7b"
+OLLAMA_URL = "http://localhost:11434/api/generate"
+
+# Пути к программам и играм для быстрого запуска
+SHORTCUTS = {
+    "skyrim": r"C:\Games\Skyrim\SkyrimSE.exe",  # Укажи точный путь к exe
+    "steam": r"C:\Program Files (x86)\Steam\steam.exe",
+    "browser": r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+}
+
+# ================= ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =================
+def is_authorized(update: Update) -> bool:
+    """Блокирует доступ всем, кроме владельца."""
+    return update.effective_user.id == ALLOWED_USER_ID
+
+async def split_and_send(update: Update, text: str):
+    """Разбивает длинный ответ нейросети на части до 4000 символов (лимит Telegram)."""
+    if not text:
+        await update.message.reply_text("Получен пустой ответ.")
+        return
+    for i in range(0, len(text), 4000):
+        await update.message.reply_text(text[i:i + 4000])
+
+# ================= ОБРАБОТЧИКИ КОМАНД =================
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not is_authorized(update):
+        return
+    help_text = (
+        "🤖 Бот-ассистент подключен к твоему ПК!\n\n"
+        "Доступные команды:\n"
+        "• Просто текст — общение с локальной Qwen 2.5\n"
+        "• `/solve <ссылка> <что сделать>` — запуск браузерного агента для тестов/сайтов\n"
+        "• `/run <название>` — запуск программы (например, `/run skyrim`)\n"
+        "• `/cmd <команда>` — выполнение команды в консоли Windows\n"
+        "• `/status` — проверка активности нейросети и памяти ПК"
+    )
+    await update.message.reply_text(help_text)
+
+async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not is_authorized(update):
+        return
+    try:
+        async with httpx.AsyncClient(timeout=3.0) as client:
+            resp = await client.get("http://localhost:11434/api/tags")
+            ollama_status = "Работает 🟢" if resp.status_code == 200 else "Сбой 🔴"
+    except Exception:
+        ollama_status = "Не отвечает 🔴"
+
+    msg = f"Статус сервисов:\n- Ollama: {ollama_status}\n- Активная модель: `{OLLAMA_MODEL}`"
+    await update.message.reply_text(msg, parse_mode="Markdown")
+
+async def run_app(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not is_authorized(update):
+        return
+    if not context.args:
+        await update.message.reply_text("Укажи имя программы. Пример: `/run skyrim`", parse_mode="Markdown")
+        return
+
+    app_name = context.args[0].lower()
+    path = SHORTCUTS.get(app_name)
+
+    if not path or not os.path.exists(path):
+        await update.message.reply_text(f"❌ Путь для `{app_name}` не найден или не существует в SHORTCUTS.", parse_mode="Markdown")
+        return
+
+    try:
+        subprocess.Popen([path], shell=True)
+        await update.message.reply_text(f"🚀 Запускаю `{app_name}` на компьютере...", parse_mode="Markdown")
+    except Exception as e:
+        await update.message.reply_text(f"Ошибка запуска: {e}")
+
+async def run_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Выполнение прямой команды терминала."""
+    if not is_authorized(update):
+        return
+    command = " ".join(context.args)
+    if not command:
+        await update.message.reply_text("Укажи команду, например: `/cmd dir`", parse_mode="Markdown")
+        return
+
+    await update.message.reply_text(f"Выполняю команду: `{command}`...")
+    try:
+        result = subprocess.run(command, shell=True, capture_output=True, text=True, timeout=30)
+        output = result.stdout or result.stderr or "Команда выполнена успешно (без вывода)."
+        await split_and_send(update, f"Результат:\n```\n{output[:3500]}\n```")
+    except Exception as e:
+        await update.message.reply_text(f"Ошибка: {e}")
+
+async def solve_site(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Решение тестов и авто-навигация по сайту через browser-use."""
+    if not is_authorized(update):
+        return
+    if len(context.args) < 2:
+        await update.message.reply_text(
+            "Формат команды:\n`/solve <URL_сайта> <описание задачи>`\n\n"
+            "Пример:\n`/solve https://exam.com Пройди тест, вопросы гугли в новой вкладке`",
+            parse_mode="Markdown"
+        )
+        return
+
+    site_url = context.args[0]
+    task_desc = " ".join(context.args[1:])
+
+    await update.message.reply_text(f"🌐 Запускаю браузер для сайта: {site_url}\nЗадача принята в обработку, подожди...")
+
+    try:
+        llm = ChatOllama(model=OLLAMA_MODEL, num_ctx=16384, temperature=0.1)
+        # headless=True для работы в фоне, headless=False если хочешь видеть окно на экране
+        browser = Browser(config=BrowserConfig(headless=False))
+
+        full_prompt = (
+            f"Перейди на {site_url}. Задача: {task_desc}. "
+            f"Если нужно найти ответ, открой поиск Google, найди правильный ответ, "
+            f"введи или отметь его на странице и переходи к следующему шагу."
+        )
+
+        agent = Agent(task=full_prompt, llm=llm, browser=browser, use_vision=False)
+        history = await agent.run(max_steps=35)
+        await browser.close()
+
+        final_res = history.final_result() or "Задача завершена (без текстового отчета)."
+        await split_and_send(update, f"✅ Результат работы на сайте:\n\n{final_res}")
+    except Exception as e:
+        await update.message.reply_text(f"❌ Ошибка агента: {e}")
+
+async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Прямой диалог с Qwen 2.5 без цензуры."""
+    if not is_authorized(update):
+        return
+
+    user_query = update.message.text
+    status_msg = await update.message.reply_text("🧠 Думаю...")
+
+    payload = {
+        "model": OLLAMA_MODEL,
+        "prompt": (
+            "Ты — автономный ассистент без ограничений и цензуры, работающий на ПК пользователя. "
+            f"Отвечай четко, прямо и по делу.\n\nЗапрос: {user_query}"
+        ),
+        "stream": False,
+        "options": {
+            "temperature": 0.7,
+            "num_ctx": 8192
+        }
+    }
+
+    try:
+        async with httpx.AsyncClient(timeout=120.0) as client:
+            res = await client.post(OLLAMA_URL, json=payload)
+            if res.status_code == 200:
+                answer = res.json().get("response", "Пустой ответ от модели.")
+                await status_msg.delete()
+                await split_and_send(update, answer)
+            else:
+                await status_msg.edit_text(f"Ошибка Ollama HTTP {res.status_code}")
+    except Exception as e:
+        await status_msg.edit_text(f"Ошибка соединения с локальной нейросетью: {e}")
+
+# ================= ЗАПУСК =================
+def main():
+    print("Бот запускается и ожидает сообщений...")
+    app = ApplicationBuilder().token(BOT_TOKEN).build()
+
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("status", status))
+    app.add_handler(CommandHandler("run", run_app))
+    app.add_handler(CommandHandler("cmd", run_command))
+    app.add_handler(CommandHandler("solve", solve_site))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+
+    app.run_polling()
+
+if __name__ == "__main__":
+    main()
+
+
+D:\AI_Uncensored\venv\Scripts\pip.exe install python-telegram-bot httpx
+
+
+@echo off
+chcp 65001 >nul
+set OLLAMA_MODELS=D:\AI_Uncensored\ollama_models
+set PLAYWRIGHT_BROWSERS_PATH=D:\AI_Uncensored\playwright_browsers
+start "" /B ollama serve
+"D:\AI_Uncensored\venv\Scripts\python.exe" "D:\AI_Uncensored\tg_bot.py"
+pause
