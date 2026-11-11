@@ -198,3 +198,105 @@ https://free.drweb.ru/download+cureit+free/?ph=842e343404ab12da080f3d09d7fbebb3
 
 https://free.drweb.ru/download+cureit+free/?ph=858379f033f9f7bd1d39c6666c16a9d3
 
+
+
+
+
+
+
+$BaseDir = "D:\AI_Uncensored"
+
+# 1. Определение правильного исполняемого файла Python и PIP
+if (Test-Path "$BaseDir\venv\Scripts\python.exe") {
+    $Py = "$BaseDir\venv\Scripts\python.exe"
+    $Pip = "$BaseDir\venv\Scripts\pip.exe"
+} elseif (Test-Path "$BaseDir\Python311\python.exe") {
+    $Py = "$BaseDir\Python311\python.exe"
+    $Pip = "$BaseDir\Python311\Scripts\pip.exe"
+} else {
+    $Py = "python"
+    $Pip = "pip"
+}
+
+Write-Host "Используется Python: $Py" -ForegroundColor Yellow
+Write-Host "Используется PIP:    $Pip" -ForegroundColor Yellow
+
+Write-Host "`n=== [1/5] Обновление базовых инструментов сборки ===" -ForegroundColor Cyan
+& $Pip install --upgrade pip setuptools wheel
+
+Write-Host "`n=== [2/5] Установка PyTorch с поддержкой CUDA 12.4 (для RTX 3060 Ti) ===" -ForegroundColor Cyan
+& $Pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+
+Write-Host "`n=== [3/5] Установка всех библиотек комбайна (полный список) ===" -ForegroundColor Cyan
+& $Pip install `
+    gradio `
+    diffusers `
+    transformers `
+    accelerate `
+    safetensors `
+    peft `
+    pillow `
+    langchain-ollama `
+    browser-use `
+    playwright `
+    duckduckgo-search `
+    python-telegram-bot `
+    httpx `
+    aiohttp `
+    requests
+
+Write-Host "`n=== [4/5] Установка браузера Chromium для решения задач на сайтах ===" -ForegroundColor Cyan
+if (Test-Path "$BaseDir\venv\Scripts\playwright.exe") {
+    & "$BaseDir\venv\Scripts\playwright.exe" install chromium
+} elseif (Test-Path "$BaseDir\Python311\Scripts\playwright.exe") {
+    & "$BaseDir\Python311\Scripts\playwright.exe" install chromium
+} else {
+    & $Py -m playwright install chromium
+}
+
+Write-Host "`n=== [5/5] Проверка корректности установки всех модулей ===" -ForegroundColor Cyan
+$CheckCode = @"
+import sys
+modules = [
+    'torch', 'torchvision', 'gradio', 'diffusers', 
+    'transformers', 'accelerate', 'PIL', 'langchain_ollama', 
+    'browser_use', 'playwright', 'duckduckgo_search', 
+    'telegram', 'httpx'
+]
+failed = []
+for m in modules:
+    try:
+        __import__(m)
+        print(f'  [OK] {m}')
+    except Exception as e:
+        print(f'  [FAIL] {m}: {e}')
+        failed.append(m)
+
+if not failed:
+    import torch
+    cuda_ok = torch.cuda.is_available()
+    device = torch.cuda.get_device_name(0) if cuda_ok else 'НЕТ'
+    print(f'\nCUDA доступна: {cuda_ok} (Устройство: {device})')
+    print('\nВСЕ БИБЛИОТЕКИ УСПЕШНО ЗАГРУЖЕНЫ И ГОТОВЫ К РАБОТЕ!')
+else:
+    print(f'\nОшибки в модулях: {failed}')
+    sys.exit(1)
+"@
+
+& $Py -c $CheckCode
+
+# Перезаписываем start.bat с точным путем к рабочему Python
+$BatCode = @"
+@echo off
+chcp 65001 >nul
+set OLLAMA_MODELS=$BaseDir\ollama_models
+set HF_HOME=$BaseDir\hf_cache
+set PLAYWRIGHT_BROWSERS_PATH=$BaseDir\playwright_browsers
+start "" /B ollama serve
+"$Py" "$BaseDir\app.py"
+pause
+"@
+Set-Content -Path "$BaseDir\start.bat" -Value $BatCode -Encoding ASCII
+Copy-Item "$BaseDir\start.bat" -Destination "$env:USERPROFILE\Desktop\Start_AI_Uncensored.bat" -Force
+
+Write-Host "`nГотово! Ярлык Start_AI_Uncensored.bat на Рабочем столе обновлен." -ForegroundColor Green
