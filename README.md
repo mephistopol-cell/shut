@@ -198,17 +198,4 @@
 
 https://free.drweb.ru/download+cureit+free/?ph=842e343404ab12da080f3d09d7fbebb3
 
-https://free.drweb.ru/download+cureit+free/?ph=858379f033f9f7bd1d39c6666c16a9d3
-
-
-
-
-
-
-
-
-
-
-
-
-https://sub.speedgamer.top/AqPi5zFvdV5bFbB
+https://sub.goida-vpn.pro/XWBAWUFWFbN8kFWx
